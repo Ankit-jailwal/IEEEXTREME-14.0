@@ -1,0 +1,90 @@
+//Following code is written in C++
+/*PROBLEM STATEMENT
+
+Alice often likes to play with palindromic strings. Given a string SS, she wants to find two non-empty palindromic substrings that are not overlapping. What is the maximum sum of lengths of these two palindromic substrings?
+
+Standard input
+The input begins with a single integer TT on the first line, the number of test cases.
+
+Each of the next TT lines gives one test case with a single string SS.
+
+Standard output
+For each test case, output a single line with the maximum sum of lengths.
+
+Constraints and notes
+1 \leq T \leq 101≤T≤10
+SS contains between 22 and 10^510
+​5
+​​  lowercase English letters.
+A string is palindromic if we can obtain the same string by reversing it. For example, abcba, abba, a are palindromic, and abc is not palindromic.*/
+
+//CODE STARTS FROM HERE
+
+#include <bits/stdc++.h> 
+using namespace std; 
+  int m1=0,m2=0,m3=0;
+  string sub1="",sub2="";
+  
+int longestPalSubstr(string str,int flag) 
+{ 
+    int n = str.size(); 
+    bool table[n][n]; 
+    memset(table, 0, sizeof(table)); 
+    int maxLength = 1; 
+  
+    for (int i = 0; i < n; ++i) 
+        table[i][i] = true; 
+
+    int start = 0; 
+    for (int i = 0; i < n - 1; ++i) { 
+        if (str[i] == str[i + 1]) { 
+            table[i][i + 1] = true; 
+            start = i; 
+            maxLength = 2; 
+        } 
+    } 
+  
+
+    for (int k = 3; k <= n; ++k) { 
+        for (int i = 0; i < n - k + 1; ++i) { 
+            int j = i + k - 1; 
+            if (table[i + 1][j - 1] && str[i] == str[j]) { 
+                table[i][j] = true; 
+                if(k==n)
+                {
+                    continue;
+                }
+                if (k > maxLength) { 
+                    start = i; 
+                    maxLength = k; 
+                } 
+            } 
+        } 
+    } 
+    if(flag==0)
+    {
+        ::sub1=str.substr(0,start);
+        ::sub2=str.substr(start + maxLength - 1,n);
+    }
+  
+   return maxLength;
+} 
+
+int main() 
+{int n;
+cin>>n;
+while(n>0)
+{
+    string str; 
+    cin>>str;
+   ::m1=longestPalSubstr(str,0); 
+   ::m2=longestPalSubstr(sub1,1);
+   ::m3=longestPalSubstr(sub2,1);
+   if(m2>=m3)
+   cout<<(m1+m2);
+   else
+   cout<<(m1+m3);
+   --n;
+}  
+    return 0; 
+}
