@@ -81,9 +81,9 @@ while(n>0)
    ::m2=longestPalSubstr(sub1,1);
    ::m3=longestPalSubstr(sub2,1);
    if(m2>=m3)
-   cout<<(m1+m2);
+   cout<<(m1+m2)<<endl;
    else
-   cout<<(m1+m3);
+   cout<<(m1+m3)<<endl;
    --n;
 }  
     return 0; 
